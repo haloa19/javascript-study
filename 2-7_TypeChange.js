@@ -21,6 +21,7 @@ alert("변경 후 타입: " + typeof num); // 결과: number
 // 2-3. 타입별 숫자형 변환
 alert(Number("   123   ")); // 결과: 123 (공백 제거 후 남은 문자가 숫자이므로 변환 가능)
 alert(Number("123a")); // 결과: NaN (a로 인해 숫자 변환 실패)
+alert(Number("")) // 결과: 0
 alert(Number(true));  // 결과: 1
 alert(Number(false)); // 결과: 0
 alert(Number(null)); // 결과: 0
