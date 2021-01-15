@@ -42,3 +42,16 @@ let welcome = (age < 18) ?
     () => alert("안녕하세요!");
 
 welcome(); // 결과: 18
+
+
+// 과제
+// 화살표 함수로 변경하기
+function ask(question, yes, no) {
+    if(confirm(question)) yes()
+    else no();
+}
+ask(
+    "동의합니까?",
+    () => alert("동의!!"),
+    () => alert("취소!!")
+)
