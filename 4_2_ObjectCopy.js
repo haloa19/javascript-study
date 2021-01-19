@@ -1,4 +1,4 @@
-// 1. 원시타입 복사 
+// 1. 원시타입 복사
 let message = "Halo!!!";
 let pharse = message; // 독립된 변수에 새롭게 복사 및 저장
 alert("message: " + message + ", pharse: " + pharse); // 결과: Halo!!!, Halo!!!
