@@ -1,4 +1,6 @@
 // 1. 생성자 함수 만들기
+// ㄴ 생성자 함수와 일반 함수 생성의 기술적 차이는 없음
+// ㄴ 특징: 대문자로 시작, new 사용하여 실행
 function User(name) {
   this.name = name;
   this.isAdmin = false;
@@ -35,7 +37,9 @@ let user2 = new User2("Apche");
 //       isAdmin: false
 //   }
 
+
 // 3. 익명함수로 만들기
+// ㄴ 재사용할 필요가 없고 복잡한 객체 일 때 사용
 let user3 = new (function () {
   this.name = "Mory";
   this.isAdmin = false;
@@ -43,20 +47,32 @@ let user3 = new (function () {
   // 지역 변수, 로직, 구문 등의 코드 작성.
 })();
 
-// 4. new.target 이용하기
-function User3(name) {
-  if (!new.target) {
-    // new 없이 실행했을 경우
-    return new User(name); // new를 붙여서 반환해주기
-  }
 
-  this.name = name;
+// 4. new.target 이란?
+// ㄴ new 와 같이 사용하여 해당 함수 자체를 반환 (자주 사용X)
+function User4() {
+  alert(new.target);
 }
 
-let john = User3("John"); // new를 붙인 것과 동일하게 작동
-alert(john.name); // 결과: John
+User4(); // undefined
+new User4(); // function User {...}
 
-// 5. 생성자 함수에서 return 사용하기
+
+// 5. new.target 사용하기
+function User5(name) {
+  if(!new.target) {
+      return new User5(name);
+  }
+  this.name = name;
+}
+let john = User5("John"); // User5 함수 내용에 의해 new를 쓴 것처럼 변환
+alert(john.name);
+
+
+// 6. 생성자 함수에서 return 사용하기
+// ㄴ 생성자 함수는 자동으로 this 반환. 따라서, return문 사용X
+// ㄴ 리턴을 한다면?
+// 6-1. 객체 반환
 function BigUser() {
   this.name = "Bee";
 
@@ -64,12 +80,33 @@ function BigUser() {
 }
 alert(new BigUser().name); // 결과: Ant
 
+// 6-2. 원시형 반환
 function SmallUser() {
   this.name = "Bee";
 
   return; // this를 반환
 }
 alert(new SmallUser().name); // 결과: Bee
+
+// 6-3. 빈 값 반환
+function NoneUser() {
+  this.name = "Bee";
+  return;
+}
+alert(new NoneUser().name); // 결과: Bee
+
+
+// 7. 생성자 내 메서드
+// ㄴ 매개변수를 이용하여 객체 내부 유연하게 구성
+function FinalUser(name) {
+  this.name = name;
+  this.sayHi = function() {
+      alert("제 이름은 " + this.name + "입니다.");
+  };
+}
+
+let con = new FinalUser("콘");
+con.sayHi(); // 결과: 제 이름은 콘입니다.
 
 // ------------------------------------------
 // 과제
